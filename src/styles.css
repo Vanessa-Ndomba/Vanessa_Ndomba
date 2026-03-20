@@ -215,7 +215,7 @@ button {
 .site-nav-trigger:focus-visible {
   border-color: rgba(255, 138, 0, 0.55);
   box-shadow: 0 0 10px rgba(255, 138, 0, 0.4), 0 0 22px rgba(255, 138, 0, 0.2);
-  transform: translateY(-1px);
+  transform: none;
   outline: none;
 }
 
@@ -1623,6 +1623,11 @@ button {
   .site-header {
     padding: 0.85rem 1rem;
     gap: 0.75rem;
+    overflow: visible;
+  }
+
+  .theme-toggle {
+    order: 2;
   }
 
   .brand-name {
@@ -1634,8 +1639,11 @@ button {
   }
 
   .site-nav {
+    order: 3;
     flex: 0 0 auto;
-    justify-content: flex-start;
+    position: relative;
+    z-index: 30;
+    align-self: flex-start;
   }
 
   .site-nav-inline {
@@ -1644,11 +1652,48 @@ button {
 
   .site-nav-trigger {
     display: inline-flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    touch-action: manipulation;
   }
 
   .site-nav-dropdown {
     display: grid;
-    min-width: 10rem;
+    position: absolute;
+    top: calc(100% + 0.45rem);
+    right: -1rem;
+    left: auto;
+    min-width: 10.75rem;
+    max-width: 13rem;
+    width: max-content;
+    padding: 0.55rem;
+    gap: 0.4rem;
+    z-index: 50;
+    animation: none;
+    transform-origin: initial;
+    border-color: rgba(255, 138, 0, 0.55);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.68), 0 0 0 1px rgba(255, 138, 0, 0.25);
+  }
+
+  .site-nav-dropdown button {
+    padding: 0.78rem 0.85rem;
+    font-size: 0.98rem;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    text-align: center;
+    justify-content: center;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .site-nav-dropdown button:hover,
+  .site-nav-dropdown button:focus-visible,
+  .site-nav-dropdown button.active {
+    color: #ffffff;
+    background: rgba(255, 138, 0, 0.22);
+    border-color: rgba(255, 138, 0, 0.55);
+    box-shadow: 0 0 10px rgba(255, 138, 0, 0.28), inset 0 0 0 1px rgba(255, 138, 0, 0.22);
   }
 
   .contact-layout,
@@ -1721,9 +1766,9 @@ button {
   }
 
   .site-nav-dropdown {
-    left: 0;
-    right: auto;
     min-width: 9.5rem;
+    max-width: 11.5rem;
+    width: 100%;
   }
 
   .site-main {
