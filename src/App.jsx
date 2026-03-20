@@ -249,21 +249,68 @@ function SectionNav({ activeSection, onChange }) {
     { id: 'about', label: 'About me' },
     { id: 'contact', label: 'Contact me' },
   ];
+  const [isOpen, setIsOpen] = useState(false);
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
-    <nav className="site-nav" aria-label="Primary navigation">
-      {items.map((item) => (
-        <button
-          key={item.id}
-          type="button"
-          className={activeSection === item.id ? 'active' : ''}
-          onClick={() => onChange(item.id)}
-          aria-pressed={activeSection === item.id}
-        >
-          {item.label}
-        </button>
-      ))}
-    </nav>
+    <div className="site-nav" ref={navRef}>
+      <nav className="site-nav-inline" aria-label="Primary navigation">
+        {items.map((item) => (
+          <button
+            key={`inline-${item.id}`}
+            type="button"
+            className={activeSection === item.id ? 'active' : ''}
+            onClick={() => onChange(item.id)}
+            aria-pressed={activeSection === item.id}
+          >
+            {item.label}
+          </button>
+        ))}
+      </nav>
+
+      <button
+        type="button"
+        className="site-nav-trigger"
+        aria-label="Open navigation menu"
+        aria-expanded={isOpen}
+        aria-controls="primary-nav-dropdown"
+        onClick={() => setIsOpen((current) => !current)}
+      >
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+      </button>
+
+      {isOpen && (
+        <nav id="primary-nav-dropdown" className="site-nav-dropdown" aria-label="Primary navigation">
+          {items.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className={activeSection === item.id ? 'active' : ''}
+              onClick={() => {
+                onChange(item.id);
+                setIsOpen(false);
+              }}
+              aria-pressed={activeSection === item.id}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+      )}
+    </div>
   );
 }
 
@@ -1062,6 +1109,7 @@ export default function App() {
       <div className="background-orb orb-two" aria-hidden="true" />
 
       <header className="site-header">
+        <SectionNav activeSection={activeSection} onChange={handleSectionChange} />
         <div className="brand-lockup">
           <span className="brand-name" aria-label="Vanessa Ndomba">
             <span className="brand-loader" aria-hidden="true">
@@ -1074,7 +1122,6 @@ export default function App() {
           </span>
           <span className="brand-role">Software Developer and Technology Specialist</span>
         </div>
-        <SectionNav activeSection={activeSection} onChange={handleSectionChange} />
         <button
           className="theme-toggle"
           onClick={() => setIsDayMode(v => !v)}
