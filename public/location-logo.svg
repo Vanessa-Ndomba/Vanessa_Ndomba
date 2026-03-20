@@ -1,0 +1,7 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Location logo">
+  <circle cx="128" cy="128" r="120" fill="#E8F0FE"/>
+  <path d="M128 34C90.3406 34 60 64.3406 60 102C60 147.58 115.435 206.676 123.365 214.896C125.824 217.447 130.176 217.447 132.635 214.896C140.565 206.676 196 147.58 196 102C196 64.3406 165.659 34 128 34Z" fill="#EA4335"/>
+  <circle cx="128" cy="102" r="30" fill="#4285F4"/>
+  <circle cx="128" cy="102" r="14" fill="#34A853"/>
+  <path d="M90 190C106 204 150 204 166 190" stroke="#FBBC05" stroke-width="10" stroke-linecap="round"/>
+</svg>

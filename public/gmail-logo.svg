@@ -1,0 +1,8 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gmail logo">
+  <rect x="20" y="40" width="216" height="176" rx="24" fill="#FFFFFF"/>
+  <path d="M56 88.5L128 142L200 88.5" stroke="#EA4335" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M56 89V196" stroke="#34A853" stroke-width="24" stroke-linecap="round"/>
+  <path d="M200 89V196" stroke="#4285F4" stroke-width="24" stroke-linecap="round"/>
+  <path d="M56 196H200" stroke="#FBBC05" stroke-width="24" stroke-linecap="round"/>
+  <path d="M56 89L128 144L200 89" stroke="#EA4335" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
