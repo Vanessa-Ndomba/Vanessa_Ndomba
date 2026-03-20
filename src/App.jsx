@@ -2,7 +2,7 @@ import { startTransition, useEffect, useRef, useState } from 'react';
 import { BsCodeSlash, BsFiletypeSql, BsGlobe, BsMicrosoft, BsSearch } from 'react-icons/bs';
 import { CgBrowser } from 'react-icons/cg';
 import { DiCss3, DiRuby } from 'react-icons/di';
-import { FaCloudSun, FaMoon, FaPython, FaReact, FaSun, FaWordpress, FaBrain, FaChartLine, FaFire } from 'react-icons/fa';
+import { FaCloudSun, FaMoon, FaPython, FaReact, FaSun, FaWordpress, FaBrain, FaChartLine, FaFire, FaChevronDown } from 'react-icons/fa';
 import { SiDotnet, SiJavascript, SiOpenjdk, SiRust } from 'react-icons/si';
 import { SiAirtable, SiVite } from 'react-icons/si';
 import { TbBrandCSharp } from 'react-icons/tb';
@@ -1087,6 +1087,7 @@ function Footer() {
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [isDayMode, setIsDayMode] = useState(false);
+  const [showScrollBack, setShowScrollBack] = useState(false);
   const headerNameChars = Array.from('Vanessa Ndomba');
 
   useEffect(() => {
@@ -1096,6 +1097,19 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = isDayMode ? 'day' : 'night';
   }, [isDayMode]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollBack(window.scrollY > 220);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handleSectionChange = (section) => {
     startTransition(() => {
@@ -1139,6 +1153,16 @@ export default function App() {
         {activeSection === 'about' && <AboutSection />}
         {activeSection === 'contact' && <ContactSection />}
       </main>
+
+      <button
+        type="button"
+        className={`scroll-back-button ${showScrollBack ? 'visible' : ''}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Scroll back to top"
+        title="Scroll back"
+      >
+        <FaChevronDown aria-hidden="true" />
+      </button>
 
       <Footer />
     </div>
