@@ -339,7 +339,8 @@ function LoopHeading({ text, cycleMs = 5000, useHeroStyle = false }) {
 }
 
 function HomeSection({ onViewAbout }) {
-  const cvFilePath = '/Vanessa%20Ndomba%27s%20Resume.pdf';
+  const cvFilePath = `${import.meta.env.BASE_URL}Vanessa%27s%20Resume.pdf`;
+  const [isCvAvailable, setIsCvAvailable] = useState(false);
   const welcomeLineOneText = 'Hello there!';
   const welcomeLineTwoText = 'I\'m Vanessa';
   const welcomeLineThreeText = 'Ndomba.';
@@ -365,6 +366,29 @@ function HomeSection({ onViewAbout }) {
     const id = setInterval(() => setWelcomeCycle((c) => c + 1), 5000);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const checkCvAvailability = async () => {
+      try {
+        const response = await fetch(cvFilePath, { method: 'HEAD' });
+        if (isMounted) {
+          setIsCvAvailable(response.ok);
+        }
+      } catch {
+        if (isMounted) {
+          setIsCvAvailable(false);
+        }
+      }
+    };
+
+    checkCvAvailability();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [cvFilePath]);
 
   useEffect(() => {
     let isCancelled = false;
@@ -577,12 +601,20 @@ function HomeSection({ onViewAbout }) {
             <details className="cv-menu">
               <summary className="primary-link">Resume </summary>
               <div className="cv-menu-items" role="menu" aria-label="CV actions">
-                <a href={cvFilePath} target="_blank" rel="noreferrer" role="menuitem">
-                  View CV
-                </a>
-                <a href={cvFilePath} download role="menuitem">
-                  Download CV
-                </a>
+                {isCvAvailable ? (
+                  <>
+                    <a href={cvFilePath} target="_blank" rel="noreferrer" role="menuitem">
+                      View CV
+                    </a>
+                    <a href={cvFilePath} download role="menuitem">
+                      Download CV
+                    </a>
+                  </>
+                ) : (
+                  <span role="menuitem" aria-disabled="true">
+                    CV not uploaded yet
+                  </span>
+                )}
               </div>
             </details>
           </div>
