@@ -171,7 +171,7 @@ button {
 .site-nav-inline button {
   white-space: nowrap;
   padding: 0.75rem 1rem;
-  border-radius: 999px;
+  border-radius: 0.5rem;
   background: transparent;
   color: #fffaf4;
   font-weight: 700;
@@ -193,7 +193,7 @@ button {
   display: none;
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 999px;
+  border-radius: 0.5rem;
   border: 1px solid #2a2a2a;
   background: transparent;
   flex-direction: column;
@@ -207,7 +207,7 @@ button {
 .site-nav-trigger span {
   width: 0.28rem;
   height: 0.28rem;
-  border-radius: 999px;
+  border-radius: 0.25rem;
   background: #f5f5f5;
 }
 
@@ -241,7 +241,7 @@ button {
   width: 100%;
   text-align: left;
   padding: 0.65rem 0.75rem;
-  border-radius: 0.65rem;
+  border-radius: 0.5rem;
   background: transparent;
   color: #fffaf4;
   font-weight: 700;
@@ -644,6 +644,12 @@ button {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.education-group {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .about-card {
   opacity: 0;
   transform: translateY(-28px);
@@ -978,6 +984,8 @@ button {
 .selectable-card {
   cursor: pointer;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .selectable-card:hover,
@@ -1005,9 +1013,11 @@ button {
   background: rgba(255, 138, 0, 0.2);
   border-color: rgba(255, 138, 0, 0.62) !important;
   box-shadow: 0 0 14px rgba(255, 138, 0, 0.2);
-  opacity: 1;
+  opacity: 1 !important;
+  visibility: visible !important;
   transform: translateY(0);
-  animation: none;
+  animation: none !important;
+  z-index: 3;
 }
 
 .tag-list li.about-selectable-item.portfolio-item-active,
@@ -1435,12 +1445,11 @@ button {
 }
 
 @keyframes brand-glow-cycle {
-  0%,
-  100% {
+  0% {
     color: var(--brand-c1);
     text-shadow:
-      0 0 10px rgba(255, 138, 0, 0.45),
-      0 0 20px rgba(255, 138, 0, 0.2);
+      0 0 10px rgba(255, 138, 0, 0.5),
+      0 0 20px rgba(255, 138, 0, 0.25);
   }
 
   33% {
@@ -1455,6 +1464,13 @@ button {
     text-shadow:
       0 0 10px rgba(103, 232, 249, 0.5),
       0 0 20px rgba(103, 232, 249, 0.25);
+  }
+
+  100% {
+    color: var(--brand-c1);
+    text-shadow:
+      0 0 10px rgba(255, 138, 0, 0.5),
+      0 0 20px rgba(255, 138, 0, 0.25);
   }
 }
 
@@ -2214,6 +2230,23 @@ html[data-theme="day"] .card h3 {
 html[data-theme="day"] .selectable-card:hover h3,
 html[data-theme="day"] .selectable-card:focus-visible h3 {
   -webkit-text-fill-color: #000000;
+}
+
+/* Prevent brief disappearance when switching or hovering sections.
+   Force visibility and cancel entry animations for panels and card elements. */
+.panel,
+.card,
+.project-card,
+.experience-card,
+.about-card,
+.section-heading h2,
+.section-heading p,
+.card h3,
+.card p {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  animation: none !important;
 }
 
 

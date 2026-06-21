@@ -8,16 +8,20 @@ import { SiAirtable, SiVite } from 'react-icons/si';
 import { TbBrandCSharp } from 'react-icons/tb';
 import { TbDatabase, TbSettingsAutomation, TbTerminal2, TbFileText } from 'react-icons/tb';
 
-const educationItems = [
+const formalEducationItems = [
+  'Postgraduate of Honors (IT) - CPUT - in progress 2026',
   'Bachelor of Computer and Information Science in Software Development - CPUT - Completed 2025',
+  'Diploma in Information Technology (IT) - Damelin College, Cape Town - Completed 2024',
+  'National Senior Certificate (NSC) - Graduated 2020',
+];
+
+const educationItems = [
   'Airtable Builder - Completed 2025',
   'Make Academy - Completed 2025',
   'Clio Admin Management - Completed 2025',
-  'Diploma in Information Technology (IT) - Damelin College, Cape Town - Completed 2024',
   'Google Cloud Skills Boost - Completed 2024',
   'The Complete Web Development Bootcamp - Udemy - Online - Short Course 2024',
   'Complete Ruby - Udemy - Online - Short Course 2024',
-  'National Senior Certificate (NSC) - Graduated 2020',
 ];
 
 const technicalSkills = [
@@ -33,7 +37,6 @@ const technicalSkills = [
   { label: 'Airtable', icon: SiAirtable, color: '#18bfff' },
   { label: 'Workflow Automation', icon: TbSettingsAutomation, color: '#7c3aed' },
   { label: 'Content Management', icon: TbFileText, color: '#8b5cf6' },
-  { label: 'Legal Documentation', icon: TbFileText, color: '#60a5fa' },
 ];
 
 const codingLanguages = [
@@ -113,6 +116,13 @@ const projects = [
     summary:
       'A practical workflow integration project focused on improving task efficiency with no-code and low-code tools.',
     stack: ['Make', 'Airtable', 'Automation'],
+  },
+  {
+    name: 'Manga Book Store System',
+    summary:
+      'A bookstore management system for manga collections, featuring inventory tracking, ordering, and store operations workflow.',
+    stack: ['C#', 'SQL', 'Web'],
+    repo: 'https://github.com/Vanessa-Ndomba/manga-book-store-system',
   },
   {
     name: 'Database and Systems Practice',
@@ -817,8 +827,33 @@ function AboutSection() {
       </div>
 
       <div className="about-grid">
-        <article className="card full-width about-card" style={{ '--about-index': 0 }}>
-          <h3>Education</h3>
+        <div className="education-group full-width">
+          <article className="card about-card" style={{ '--about-index': 0 }}>
+            <h3>Formal Education</h3>
+          <ul className="stack-list education-list">
+            {formalEducationItems.map((item) => (
+              <li
+                key={item}
+                className={selectedEducation === item ? 'education-item-active' : ''}
+                onClick={() => setSelectedEducation(item)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setSelectedEducation(item);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-pressed={selectedEducation === item}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="card about-card" style={{ '--about-index': 1 }}>
+          <h3>Additional Learning</h3>
           <ul className="stack-list education-list">
             {educationItems.map((item) => (
               <li
@@ -840,8 +875,9 @@ function AboutSection() {
             ))}
           </ul>
         </article>
+        </div>
 
-        <article className="card about-card full-width" style={{ '--about-index': 1 }}>
+        <article className="card about-card full-width" style={{ '--about-index': 2 }}>
           <h3>Skills</h3>
           <ul className="tag-list skills-row" aria-label="Technical skills">
             {technicalSkills.map((item) => (
